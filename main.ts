@@ -4,9 +4,9 @@ import * as tc from "npm:@actions/tool-cache";
 import * as github from "npm:@actions/github";
 import { join, basename } from "node:path";
 import semver from "npm:semver";
-import {} from "node:fs/promises";
 import process from "node:process";
 import { pipeline } from "node:stream/promises";
+import { createWriteStream } from "node:fs";
 
 async function tcDownloadTool(url: string | URL) {
   const response = await fetch(url);

@@ -1,4 +1,22 @@
-// 2> /dev/null; v=1.38.0; case $RUNNER_ARCH in X86) a=ia32 ;; X64) a=x64 ;; ARM) a=arm ;; ARM64) a=arm64 ;; esac; d="$RUNNER_TOOL_CACHE/deno/$v/$a"; [ -d "$deno_install" ] || o=$(curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="$d" sh -s "v$v" 2>&1) || { echo "$o" >&2; exit 1 }; exec "$d/bin/deno" run -Aq "$0" "$@"
+/*/ 2> /dev/null
+set -e
+deno_version='1.38.0'
+case $RUNNER_ARCH in
+  X86) arch=ia32 ;;
+  X64) arch=x64 ;;
+  ARM) arch=arm ;;
+  ARM64) arch=arm64 ;;
+esac
+deno_install="$RUNNER_TOOL_CACHE/deno/$version/$arch"
+if [ ! -d "$deno_install" ]; then
+  if ! o=$(curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="$deno_install" sh -s "v$deno_version" 2>&1); then
+    echo "$o" >&2
+    exit 1
+  fi
+fi
+exec "$deno_install/bin/deno" run -Aq "$0" "$@"
+# */
+
 import * as core from "npm:@actions/core";
 import { getExecOutput } from "npm:@actions/exec";
 import * as tools from "npm:@actions/tool-cache";

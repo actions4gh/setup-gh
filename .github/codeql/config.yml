@@ -1,4 +1,0 @@
-paths-ignore:
-  - node_modules
-  - dist
-  - lib

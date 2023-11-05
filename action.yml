@@ -1,20 +1,28 @@
 name: Setup GitHub CLI
 description: Installs or updates the GitHub CLI (gh)
-author: ser.soft GmbH
+
+branding:
+  icon: terminal
+  color: blue
+
 inputs:
-  version:
-    description: The `gh` version to install. Can also be set to `latest` to install the latest available version (including prereleases), or `stable` to install the latest stable release.
-    default: stable
-    required: true
-  github-token:
-    description: The token to use for retrieving the release. Can be set to `secrets.GITHUB_TOKEN`. Use this if you hit rate limits.
-    required: false
+  gh-version:
+    description: >
+      Which version of gh to install. This can be an exact version like '2.38.0'
+      or a semver range like '2.38' or '2.x'. You can also specify 'latest' to
+      always use the latest version. The default is 'latest'.
+    default: latest
+  token:
+    description: >
+      The GitHub token to use when pulling versions from cli/cli. By default
+      this should cover all cases. You shouldn't have to touch this setting.
+    default: |
+      ${{ github.server_url == 'https://github.com' && github.token || '' }}
+
 outputs:
   installed-version:
     description: The full version that was installed.
+
 runs:
   using: node20
-  main: dist/index.js
-branding:
-  color: white
-  icon: terminal
+  main: _main.mjs

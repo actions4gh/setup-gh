@@ -1,6 +1,6 @@
 # Setup GitHub CLI
 
-👨‍💻 Install & configure the GitHub CLI (`gh`) in your GitHub Actions runner
+👨‍💻 Install & configure the [GitHub CLI] (`gh`) in your GitHub Actions runner
 
 <table align=center><td>
 
@@ -14,6 +14,10 @@
 ```
 
 </table>
+
+👩‍💻 Installs any version of the [GitHub CLI] you want \
+🏃‍♂️ Works with self-hosted runners \
+🐳 Works great in container-based jobs
 
 ## Usage
 
@@ -62,6 +66,7 @@ jobs:
   something like '2.38.0' or similar.
 
 <!-- prettier-ignore-start -->
+[github cli]: https://cli.github.com/
 [cli/cli]: https://github.com/cli/cli
 [using a Docker container for a job]: https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
 [self-hosted runner]: https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners

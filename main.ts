@@ -2,14 +2,17 @@
 import * as core from "npm:@actions/core";
 import * as tc from "npm:@actions/tool-cache";
 import * as github from "npm:@actions/github";
-import {} from "node:path";
+import { join, basename } from "node:path";
 import semver from "npm:semver";
 import {} from "node:fs/promises";
 import process from "node:process";
+import { pipeline } from "node:stream/promises";
 
-// https://github.com/denoland/deno/issues/18312
-import http from "node:http"
-http.globalAgent ??= new http.Agent()
+async function tcDownloadTool(url: string | URL) {
+  const response = await fetch(url);
+  const dest = join(process.env.RUNNER_TEMP, basename(response.url));
+  await pipeline(response.body, createWriteStream(dest));
+}
 
 const octokit = github.getOctokit(core.getInput("token"), {
   request: { fetch },
@@ -50,7 +53,7 @@ if (!found) {
     win32: "zip",
   }[process.platform];
   const file = `gh_${version}_${platform}_${arch}.${ext}`;
-  found = await tc.downloadTool(
+  found = await tcDownloadTool(
     `https://github.com/cli/cli/releases/download/v${version}/${file}`
   );
   if (file.endsWith(".zip")) {

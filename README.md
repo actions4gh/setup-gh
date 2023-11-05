@@ -18,8 +18,8 @@
 ## Usage
 
 ⚠️ This action is only useful **if your runner doesn't already come with `gh`**.
-The default GitHub Actions hosted runners come with a recent version of `gh`
-installed. The only times you will need this action are if you are using a
+The default GitHub Actions hosted runners come with `gh` installed. The only
+times you will need this action are if you are using a
 `container: alpine:latest` or similar Docker container for your entire workflow
 job or if you're using a self-hosted runner image that doesn't come with `gh`
 installed.

@@ -8,9 +8,9 @@ branding:
 inputs:
   gh-version:
     description: >
-      Which version of gh to install. This can be an exact version like '2.38.0'
-      or a semver range like '2.38' or '2.x'. You can also specify 'latest' to
-      always use the latest version. The default is 'latest'.
+      Which version of 'gh' to install. This can be an exact version like
+      '2.38.0' or a semver range like '2.38' or '2.x'. You can also specify
+      'latest' to always use the latest version. The default is 'latest'.
     default: latest
   token:
     description: >
@@ -20,8 +20,10 @@ inputs:
       ${{ github.server_url == 'https://github.com' && github.token || '' }}
 
 outputs:
-  installed-version:
-    description: The full version that was installed.
+  gh-version:
+    description: >
+      The version of 'gh' that was installed. This will be something like
+      '2.38.0' or similar.
 
 runs:
   using: node20

@@ -17,13 +17,22 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 jobs:
-  test-action:
+  os:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        gh-version: ["2", "2.38", "2.38.0"]
     runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+      - run: gh --version
+  gh-version:
+    strategy:
+      fail-fast: false
+      matrix:
+        gh-version: ["2", "2.38", "2.38.0"]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./

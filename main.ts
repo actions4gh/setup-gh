@@ -7,8 +7,9 @@ import semver from "npm:semver";
 import {} from "node:fs/promises";
 import process from "node:process";
 
+// https://github.com/denoland/deno/issues/18312
 import http from "node:http"
-http.globalAgent = new http.Agent()
+http.globalAgent ??= new http.Agent()
 
 const octokit = github.getOctokit(core.getInput("token"), {
   request: { fetch },

@@ -62,7 +62,7 @@ if (!found) {
   } else {
     found = await tc.extractTar(found);
   }
-  found = tc.cacheDir(found, version);
+  found = tc.cacheDir(found, "gh-cli", version);
 }
 core.addPath(found);
 core.setOutput("gh-version", version);

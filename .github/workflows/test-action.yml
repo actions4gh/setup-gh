@@ -22,10 +22,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+        gh-version: ["2", "2.38", "2.38.0"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./
+      - uses: actions/checkout@v4
       - uses: ./
         with:
-          gh-version: "1"
+          gh-version: ${{ matrix.gh-version }}

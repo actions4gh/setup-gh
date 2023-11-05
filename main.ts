@@ -10,7 +10,7 @@ import { createWriteStream } from "node:fs";
 
 async function tcDownloadTool(url: string | URL) {
   const response = await fetch(url);
-  const dest = join(process.env.RUNNER_TEMP, basename(response.url));
+  const dest = join(process.env.RUNNER_TEMP, basename(url.toString()));
   await pipeline(response.body, createWriteStream(dest));
 }
 

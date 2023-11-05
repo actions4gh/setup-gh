@@ -1,4 +1,4 @@
-// 2> /dev/null; v=1.38.0; i="$RUNNER_TOOL_CACHE/deno/$v/${RUNNER_ARCH,,}"; [ -d "$i" ] || { o=$(curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="$i" sh -s "v$v" 2>&1) || { echo "$o" >&2; exit 1 } }; exec "$i/bin/deno" run -Aq "$0" "$@"
+// 2> /dev/null; v=1.38.0; i="$RUNNER_TOOL_CACHE/deno/$v/${RUNNER_ARCH,,}"; if [  ! -d "$i" ]; then if ! o=$(curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="$i" sh -s "v$v" 2>&1); then echo "$o" >&2; exit 1; done; done; exec "$i/bin/deno" run -Aq "$0" "$@"
 import * as core from "npm:@actions/core";
 import * as tc from "npm:@actions/tool-cache";
 import * as github from "npm:@actions/github";

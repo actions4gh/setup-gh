@@ -29,3 +29,4 @@ jobs:
       - uses: ./
         with:
           gh-version: ${{ matrix.gh-version }}
+      - run: gh --version

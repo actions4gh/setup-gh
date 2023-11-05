@@ -17,11 +17,11 @@
 
 ## Usage
 
+![GitHub Actions](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Actions&color=2088FF&logo=GitHub+Actions&logoColor=FFFFFF&label=)
+![GitHub](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub&color=181717&logo=GitHub&logoColor=FFFFFF&label=)
+
 ⚠️ This action is only useful **if your runner doesn't already come with `gh`**.
-The default GitHub Actions hosted runners come with `gh` installed. The only
-times you will need this action are if you are using a
-`container: alpine:latest` or similar Docker container for your entire workflow
-job or if you're using a self-hosted runner image that doesn't come with `gh`
+The default GitHub Actions hosted runners come with `gh` installed. You only need this action to install `gh` if you're [using a Docker container for a job] or if you're using a [self-hosted runner] image that doesn't come with `gh`
 installed.
 
 Here's an example of a `container` scenario where you might need to use this
@@ -61,4 +61,8 @@ jobs:
 - **`gh-version`:** The version of `gh` that was installed. This will be
   something like '2.38.0' or similar.
 
+<!-- prettier-ignore-start -->
 [cli/cli]: https://github.com/cli/cli
+[using a Docker container for a job]: https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
+[self-hosted runner]: https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
+<!-- prettier-ignore-end -->

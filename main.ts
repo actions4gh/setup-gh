@@ -7,14 +7,8 @@ import semver from "npm:semver";
 import {} from "node:fs/promises";
 import process from "node:process";
 
-// import http from "node:http"
-// http.globalAgent = new http.Agent()
-process.on("uncaughtException", (e) => {
-  console.dir(e);
-});
-process.on("unhandledRejection", (e) => {
-  console.dir(e);
-});
+import http from "node:http"
+http.globalAgent = new http.Agent()
 
 const octokit = github.getOctokit(core.getInput("token"), {
   request: { fetch },

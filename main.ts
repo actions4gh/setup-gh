@@ -16,7 +16,9 @@ process.on("unhandledRejection", (e) => {
   console.dir(e);
 });
 
-const octokit = github.getOctokit(core.getInput("token"));
+const octokit = github.getOctokit(core.getInput("token"), {
+  request: { fetch },
+});
 const releases = await octokit.paginate(octokit.rest.repos.listReleases, {
   owner: "cli",
   repo: "cli",

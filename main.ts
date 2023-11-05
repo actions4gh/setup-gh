@@ -6,9 +6,10 @@ import {} from "node:path";
 import semver from "npm:semver";
 import {} from "node:fs/promises";
 
-import http from "node:http"
-http.globalAgent = new http.Agent()
+// import http from "node:http"
+// http.globalAgent = new http.Agent()
 
+console.debug(core.getInput("token").length)
 const octokit = github.getOctokit(core.getInput("token"))
 const releases = await octokit.paginate(octokit.rest.repos.listReleases, {
   owner: "cli",

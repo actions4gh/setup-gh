@@ -7,6 +7,7 @@ import process from "node:process";
 import { pipeline } from "node:stream/promises";
 import { createWriteStream } from "node:fs";
 
+// https://github.com/denoland/deno/issues/21080
 async function tcDownloadTool(url: string | URL) {
   const response = await fetch(url);
   const dest = join(process.env.RUNNER_TEMP, basename(url.toString()));

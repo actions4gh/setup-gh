@@ -35,7 +35,7 @@ if (version === "latest") {
 }
 core.debug(`Resolved version: ${version}`);
 
-let found = tc.find("gh-cli", version);
+let found = tc.find("gh", version);
 core.setOutput("cache-hit", !!found);
 if (!found) {
   const platform = {
@@ -62,7 +62,7 @@ if (!found) {
   } else {
     found = await tc.extractTar(found);
   }
-  found = tc.cacheDir(found, "gh-cli", version);
+  found = tc.cacheDir(found, "gh", version);
 }
 core.addPath(found);
 core.setOutput("gh-version", version);

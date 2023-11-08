@@ -1,4 +1,3 @@
-// 2>/dev/null; v=1.38.0; [ -d "${i="$RUNNER_TOOL_CACHE/deno/$v/$(echo "$RUNNER_ARCH" | tr '[:upper:]' '[:lower:]')"}" ] || curl -fsSL https://deno.land/x/install/install.sh |DENO_INSTALL="$i" sh -s "v$v" >/dev/null 2>&1; exec "$i/bin/deno" run -Aq "$0" "$@"
 import * as core from "npm:@actions/core";
 import * as tc from "npm:@actions/tool-cache";
 import * as github from "npm:@actions/github";

@@ -3,39 +3,30 @@ on:
   push:
     branches: "main"
     paths-ignore:
-      - LICENSE
+      - .gitignore
       - README.md
+      - LICENSE
       - .github/**
       - "!.github/workflows/test-action.yml"
   pull_request:
     paths-ignore:
-      - LICENSE
+      - .gitignore
       - README.md
+      - LICENSE
       - .github/**
       - "!.github/workflows/test-action.yml"
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 jobs:
-  os:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./
-      - run: gh --version
-  gh-version:
-    strategy:
-      fail-fast: false
-      matrix:
-        gh-version: ["2", "2.38", "2.38.0"]
+  test-action:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./
+      - uses: actions/setup-node@v4
         with:
-          gh-version: ${{ matrix.gh-version }}
-      - run: gh --version
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: ./

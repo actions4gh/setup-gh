@@ -12,19 +12,34 @@ inputs:
       '2.38.0' or a semver range like '2.38' or '2.x'. You can also specify
       'latest' to always use the latest version. The default is 'latest'.
     default: latest
-  token:
+  cli-token:
     description: >
       The GitHub token to use when pulling versions from cli/cli. By default
       this should cover all cases. You shouldn't have to touch this setting.
     default: |
       ${{ github.server_url == 'https://github.com' && github.token || '' }}
+  token:
+    description: >
+      Token to use when running 'gh auth login'. This can be set to an empty
+      string to skip the login step. By default this will use the token
+      'github.token'.
+    default: ${{ github.token }}
+  github-server-url:
+    description: >
+      The GitHub server URL to use when running 'gh auth login'. Defaults to the
+      current 'github.server_url'.
+    default: ${{ github.server_url }}
 
 outputs:
   gh-version:
     description: >
       The version of 'gh' that was installed. This will be something like
       '2.38.0' or similar.
+  auth:
+    description: >
+      A boolean indicating whether or not the user is authenticated. This will
+      be true if 'gh auth login' was run and false otherwise.
 
 runs:
   using: node20
-  main: _main.mjs
+  main: dist/main.js

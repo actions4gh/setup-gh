@@ -1,11 +1,13 @@
-import * as core from "npm:@actions/core";
-import * as tc from "npm:@actions/tool-cache";
-import * as github from "npm:@actions/github";
+import * as core from "@actions/core";
+import * as tc from "@actions/tool-cache";
+import * as github from "@actions/github";
 import { join, basename } from "node:path";
-import semver from "npm:semver";
+import semver from "semver";
 import process from "node:process";
 import { pipeline } from "node:stream/promises";
 import { createWriteStream } from "node:fs";
+import { $ } from "execa";
+import { createUnauthenticatedAuth } from "@octokit/auth-unauthenticated";
 
 // https://github.com/denoland/deno/issues/21080
 async function tcDownloadTool(url: string | URL) {
@@ -15,9 +17,12 @@ async function tcDownloadTool(url: string | URL) {
   return dest;
 }
 
-const octokit = github.getOctokit(core.getInput("token"), {
-  request: { fetch },
-});
+const octokit = core.getInput("cli-token")
+  ? github.getOctokit(core.getInput("cli-token"))
+  : github.getOctokit(undefined!, {
+      authStrategy: createUnauthenticatedAuth,
+      auth: { reason: "no 'cli-token' input" },
+    });
 let version = core.getInput("version");
 if (version === "latest") {
   const { data } = await octokit.rest.repos.getLatestRelease({
@@ -66,3 +71,12 @@ if (!found) {
 }
 core.addPath(found);
 core.setOutput("gh-version", version);
+
+const token = core.getInput("token");
+if (token) {
+  const { hostname } = new URL(core.getInput("github-server-url"));
+  await $({ input: token })`gh auth login --with-token --hostname ${hostname}`;
+  core.setOutput("auth", true);
+} else {
+  core.setOutput("auth", false);
+}

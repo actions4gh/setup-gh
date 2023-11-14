@@ -59,7 +59,7 @@ if (!found) {
   } else {
     found = await tc.extractTar(found);
   }
-  found = tc.cacheDir(found, "gh", version);
+  found = await tc.cacheDir(found, "gh", version);
 }
 core.addPath(found);
 core.setOutput("gh-version", version);

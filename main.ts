@@ -9,14 +9,6 @@ import { createWriteStream } from "node:fs";
 import { $ } from "execa";
 import { createUnauthenticatedAuth } from "@octokit/auth-unauthenticated";
 
-// https://github.com/denoland/deno/issues/21080
-async function tcDownloadTool(url: string | URL) {
-  const response = await fetch(url);
-  const dest = join(process.env.RUNNER_TEMP, basename(url.toString()));
-  await pipeline(response.body, createWriteStream(dest));
-  return dest;
-}
-
 const octokit = core.getInput("cli-token")
   ? github.getOctokit(core.getInput("cli-token"))
   : github.getOctokit(undefined!, {
@@ -59,7 +51,7 @@ if (!found) {
     win32: "zip",
   }[process.platform];
   const file = `gh_${version}_${platform}_${arch}.${ext}`;
-  found = await tcDownloadTool(
+  found = await tc.downloadTool(
     `https://github.com/cli/cli/releases/download/v${version}/${file}`
   );
   if (file.endsWith(".zip")) {

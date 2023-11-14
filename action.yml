@@ -1,4 +1,4 @@
-name: Setup GitHub CLI
+name: Setup GitHub CLI 2
 description: Installs or updates the GitHub CLI (gh)
 
 branding:

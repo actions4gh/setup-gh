@@ -6,10 +6,9 @@
 
 ```yml
 - uses: actions4gh/setup-gh@v1
-- run: gh issue create --repo "$REPO" --body "$BODY"
+- run: gh issue create --body "$BODY"
   env:
-    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    REPO: ${{ github.repository }}
+    GH_REPO: ${{ github.repository }}
     BODY: Hello world!
 ```
 

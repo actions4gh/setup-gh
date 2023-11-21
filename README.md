@@ -1,4 +1,4 @@
-# Setup GitHub CLI
+# Setup the GitHub CLI
 
 👨‍💻 Install & configure the [GitHub CLI] (`gh`) in your GitHub Actions runner
 

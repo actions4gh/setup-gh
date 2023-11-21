@@ -1,5 +1,5 @@
 name: Setup the GitHub CLI
-description: Installs or updates the GitHub CLI (gh)
+description: 👨‍💻 Install & configure the GitHub CLI (gh) in your GitHub Actions runner
 
 branding:
   icon: terminal
